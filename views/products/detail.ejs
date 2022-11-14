@@ -1,0 +1,37 @@
+<%- include("../partials/top") %>
+  <main class="detail-page">
+    <div class="page-header">
+      <div class="btn-container">
+        <a href="/products" class="btn">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </a>
+      </div>
+      <div class="page-title">
+        <span>category:</span>
+        <span><%= product.category[0].title %></span>
+      </div>
+      <div class="btn-container">
+        <a href="/products/<%= product._id %>/update" class="btn">
+          <span class="material-symbols-outlined">edit</span>
+        </a>
+        <a href="/products/<%= product._id %>/delete" class="btn">
+          <span class="material-symbols-outlined">delete</span>
+        </a>
+      </div>
+    </div>
+    
+    <section class="single-product">
+      <div class="image-container">
+        <img src="<%=product.imgUrl%>" alt="<%= product.description %>">
+      </div>
+      <div class="details">
+        <h3><%= product.title %></h3>
+        <div class="price-rating">
+          <p class="price"><span>$</span><%= product.price %></p>
+          <p class="rating"><%= product.rating %> ☆</p>
+        </div>
+        <p class="desc"><%= product.description %></p>
+      </div>
+    </section>
+  </main>
+<%- include("../partials/bottom") %>

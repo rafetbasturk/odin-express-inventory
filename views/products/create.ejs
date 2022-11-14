@@ -1,0 +1,71 @@
+<%- include("../partials/top") %>
+
+<main class="products create">
+  <div class="page-header">
+    <div class="btn-container">
+      <a href="/products" class="btn">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+    </div>
+    <h1 class="page-title">
+      <%= title %>
+    </h1>
+  </div>
+  <% if (errors.length) { %>
+    <ul class="error">
+      <% errors.forEach(err=> { %>
+        <li>
+          <%= err.msg %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <form method="POST" enctype="multipart/form-data">
+    <div class="input-container">
+      <label for="title">title</label>
+      <input type="text" name="title" id="title" value="<%= product.title %>">
+    </div>
+    <div class="input-container">
+      <label for="description">description</label>
+      <textarea name="description" id="description"><%= product.description %></textarea>
+    </div>
+    <div class="input-container">
+      <label for="price">price</label>
+      <input type="number" name="price" id="price" min="0" step="0.01" value="<%= product.price %>">
+    </div>
+    <div class="input-container">
+      <label for="rating">rating</label>
+      <input type="number" name="rating" id="rating" min="0" step="0.01" max="5"
+        value="<%= product.rating %>">
+    </div>
+    <div class="input-container">
+      <label for="stock">stock</label>
+      <input type="number" name="stock" id="stock" min="0" step="1" value="<%= product.stock %>">
+    </div>
+    <div class="input-container">
+      <label for="brand">brand</label>
+      <input type="text" name="brand" id="brand" value="<%= product.brand %>">
+    </div>
+    <div class="input-container">
+      <label for="category">category</label>
+      <select name="category" id="category">
+        <option value="">Please choose a category</option>
+        <% categories.forEach(category => { %>
+          <% const selected = category._id.toString() === product.category[0]._id.toString() ? "selected" : "" %> 
+          <option value="<%= category._id %>" <%= selected %>>
+            <%= category.title %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="input-container">
+      <label for="image">upload image</label>
+      <input type="file" name="image" id="image">
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+</main>
+
+<%- include("../partials/bottom") %>

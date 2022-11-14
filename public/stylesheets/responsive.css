@@ -1,0 +1,31 @@
+@media screen and (min-width: 756px) {
+  :root {
+    font-size: 12px;
+  }
+
+  header {
+    padding: 0 var(--size-xxl);
+  }
+
+  .products, .detail-page, .categories {
+    padding: var(--size-m) var(--size-xxl);
+  }
+
+  .detail-page .single-product {
+    flex-direction: row;
+  }
+  
+  .detail-page .image-container {
+    height: 400px;
+    width: auto;
+    max-width: 400px;
+  }
+
+  .detail-page .details {
+    border-radius: 0 var(--size-xxs) var(--size-xxs) 0;
+  }
+
+  .page-header .page-title {
+    font-size: var(--size-s);
+  }
+}

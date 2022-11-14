@@ -1,0 +1,9 @@
+<%- include("./partials/top") %>
+
+<main>
+  <h1><%= error.reason %></h1>
+  <h2><%= error.status %></h2>
+  <pre><%= error.stack %></pre>
+</main>
+
+<%- include("./partials/bottom") %>

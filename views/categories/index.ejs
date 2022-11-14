@@ -1,0 +1,28 @@
+<%- include("../partials/top") %>
+
+<main class="categories">
+  <div class="page-header">
+    <div class="btn-container">
+      <a href="/" class="btn">
+        <span class="material-symbols-outlined">home</span>
+      </a>
+    </div>
+    <h1 class="page-title"><%= title %></h1>
+    <a href="/categories/create" class="btn">
+      <span class="material-symbols-outlined">add</span>
+    </a>
+  </div>
+  
+  <div class="categories__content">
+    <% if (categories.length) { %>
+      <% categories.forEach(category => { %>
+        <a href="/categories/<%= category._id %>"><%= category.title %></a>
+      <% }) %>
+    <% } else { %>
+      <p>There is no category!</p>
+    <% } %>
+  </div>
+</main>
+
+<%- include("../partials/bottom") %>
+

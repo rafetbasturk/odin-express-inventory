@@ -1,0 +1,27 @@
+header {
+  display: flex;
+  height: 80px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--size-m);
+  border-bottom: 2px solid var(--clr-logo);
+  position: sticky;
+  top: 0;
+  background: var(--clr-btn);
+}
+
+.logo a {
+  font-size: var(--size-ml);
+  font-weight: 700;
+  color: var(--clr-logo);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.active {
+  color: var(--clr-logo);
+}

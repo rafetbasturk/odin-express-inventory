@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <title>Inventory | <%= title %></title>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <a href="/">Inventory</a>
+    </div>
+    <nav class="nav">
+      <% ["products", "categories"].forEach(element => { %>
+        <% if (active === element) { %>
+          <a href="/<%= element %>" class="active"><%= element %></a>
+        <% } else {  %>
+          <a href="/<%= element %>"><%= element %></a>
+        <% } %>
+      <% }) %>
+    </nav>
+  </header>

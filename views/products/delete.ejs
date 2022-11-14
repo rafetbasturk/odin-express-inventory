@@ -1,0 +1,11 @@
+<%- include("../partials/top") %>
+
+<main class="products products__delete">
+  <form method="post">
+    <p>Do you really want to delete this product?</p>
+    <input type="hidden" name="productId" value="<%= product._id %>" required>
+    <button>Delete</button>
+  </form>
+</main>
+
+<%- include("../partials/bottom") %>

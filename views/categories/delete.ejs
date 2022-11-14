@@ -1,0 +1,27 @@
+<%- include("../partials/top") %>
+
+<main class="categories categories__delete">
+  <% if (products.length) { %>
+    <ul>
+      <p>Delete the following products before attempting to delete this category.</p>
+      <% products.forEach((product, i) => { %>
+        <li class="list-item">
+          <a href="/products/<%= product._id %>">
+          <span><%= i+1 %></span>
+          <span><img src="<%= product.imgUrl %>" alt="<%= product.description %>" width="80" height="80"></span>
+          <span><%= product.title %></span>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <form method="post">
+      <p>Do you really want to delete this category?</p>
+      <input type="hidden" name="categoryId" value="<%= category._id %>" required>
+      <button>Delete</button>
+    </form>
+  <% } %>
+   
+</main>
+
+<%- include("../partials/bottom") %>

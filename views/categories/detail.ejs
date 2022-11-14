@@ -1,0 +1,50 @@
+<%- include("../partials/top") %>
+  <main class="detail-page">
+    <div class="page-header">
+      <div class="btn-container">
+        <a href="/categories" class="btn">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </a>
+      </div>
+      <h1 class="page-title">
+        <%= title %>
+      </h1>
+    </div>
+
+    <section class="single-category">
+      <div>
+        <h2>
+          <%= category.title %>
+        </h2>
+        <p class="desc">
+          <%= category.description %>
+        </p>
+      </div>
+      <div class="btn-container">
+        <a href="/categories/<%= category._id %>/update" class="btn">
+          <span class="material-symbols-outlined">edit</span>
+        </a>
+        <a href="/categories/<%= category._id %>/delete" class="btn">
+          <span class="material-symbols-outlined">delete</span>
+        </a>
+      </div>
+    </section>
+
+    <ul class="category__products">
+      <h3>Products in this category</h3>
+      <% if (products.length) { %>
+        <% products.forEach((product, i)=> { %>
+          <li class="list-item">
+            <a href="/products/<%= product._id %>">
+            <span><%= i+1 %></span>
+            <span><img src="<%= product.imgUrl %>" alt="<%= product.description %>" width="80" height="80"></span>
+            <span><%= product.title %></span>
+            </a>
+          </li>
+        <% }) %>
+      <% } else { %>
+        <li class="list-item">There is no product in this category!</li>
+      <% } %>
+    </ul>
+  </main>
+  <%- include("../partials/bottom") %>

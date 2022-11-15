@@ -4,6 +4,10 @@
   <form method="post">
     <p>Do you really want to delete this product?</p>
     <input type="hidden" name="productId" value="<%= product._id %>" required>
+    <div class="input-container">
+      <label for="password">password</label>
+      <input type="text" name="password" placeholder="Admin password required">
+    </div>
     <button>Delete</button>
   </form>
 </main>

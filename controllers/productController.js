@@ -4,6 +4,7 @@ const async = require("async");
 const { body, validationResult } = require("express-validator");
 const multer = require('multer')
 
+// multer functions
 const storage = multer.memoryStorage({
   destination: function (req, file, cb) {
     cb(null, './public/uploads')
@@ -15,6 +16,8 @@ const storage = multer.memoryStorage({
 
 const upload = multer({ storage: storage }).single("image")
 
+
+// controller functions
 const product_index = (req, res, next) => {
   async.parallel(
     {
@@ -104,8 +107,6 @@ const product_create_post = [
   (req, res, next) => {
     const errors = validationResult(req);
 
-    console.log(errors.array());
-
     if (!errors.isEmpty()) {
       async.parallel(
         {
@@ -182,29 +183,31 @@ const product_update_get = (req, res, next) => {
 }
 
 const product_update_post = [
-  body("title", "Title must not be empty.")
+  body("title", "Product title required")
     .trim()
     .isLength({ min: 3 })
     .escape(),
-  body("description", "Description must not be empty.")
+  body("description", "Product description required")
     .trim()
     .isLength({ min: 3 })
     .escape(),
-  body("brand", "Brand must not be empty.")
+  body("stock", "Product stock required and should be numeric")
     .trim()
-    .isLength({ min: 1 })
-    .escape(),
-  body("stock", "Stock must not be empty.")
     .isNumeric()
     .escape(),
   body("category.*").escape(),
+  body("image")
+    .custom((value, { req }) => {
+      if (!req.file) throw new Error("Image required");
+      return true;
+    }),
 
   // Process request after validation and sanitization.
   (req, res, next) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    // Create a Book object with escaped/trimmed data and old id.
+    // Create a Product object with escaped/trimmed data and old id.
     const newProduct = new Product({
       ...req.body,
       category: typeof req.body.category === "undefined" ? [] : req.body.category,
@@ -246,8 +249,7 @@ const product_update_post = [
       if (err) {
         return next(err);
       }
-
-      // Successful: redirect to book detail page.
+      // Successful: redirect to product detail page.
       res.redirect(theProduct.url);
     });
   },
@@ -278,13 +280,24 @@ const product_delete_get = (req, res, next) => {
   );
 };
 
-const product_delete_post = (req, res) => {
-  Product.findByIdAndRemove(req.body.productId, (err) => {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/products");
-  });
+const product_delete_post = (req, res, next) => {
+  if (req.body.password === process.env.ADMIN) {
+    Product.findByIdAndRemove(req.body.productId, (err) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/products");
+    });
+  }
+  else {
+    res.render("error", {
+      title: "Error",
+      active: "",
+      error: {
+        reason: "Wrong password"
+      }
+    })
+  }
 };
 
 module.exports = {

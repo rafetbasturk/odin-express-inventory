@@ -287,3 +287,8 @@ ul h3 {
     right: -150%;
   }
 }
+
+.auth {
+  max-width: 500px;
+  margin: 5rem auto;
+}

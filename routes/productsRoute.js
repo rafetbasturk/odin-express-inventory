@@ -13,7 +13,6 @@ const {
 } = require("../controllers/productController")
 
 /* GET home page. */
-
 router.get('/', product_index);
 
 router.route("/create")

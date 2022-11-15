@@ -50,7 +50,11 @@ const category_create_get = (req, res) => {
 }
 
 const category_create_post = [
-  body("title", "Category title required")
+  body("title", "Title is required")
+    .trim()
+    .isLength({ min: 3 })
+    .escape(),
+  body("description", "Description is required")
     .trim()
     .isLength({ min: 3 })
     .escape(),
@@ -113,15 +117,14 @@ const category_update_get = (req, res, next) => {
 };
 
 const category_update_post = [
-  body("title", "Category title must not be empty.")
+  body("title", "Title is required")
     .trim()
     .isLength({ min: 3 })
     .escape(),
-  body("description", "Description must not be empty.")
+  body("description", "Description is required")
     .trim()
     .isLength({ min: 3 })
     .escape(),
-
   (req, res, next) => {
     const errors = validationResult(req);
     const category = new Category({

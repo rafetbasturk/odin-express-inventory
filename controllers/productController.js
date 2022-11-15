@@ -94,13 +94,17 @@ const product_create_post = [
     .trim()
     .isNumeric()
     .escape(),
-  body("image", "Image required")
-    .notEmpty()
-    .escape(),
   body("category.*").escape(),
+  body("image")
+    .custom((value, { req }) => {
+      if (!req.file) throw new Error("Image required");
+      return true;
+    }),
 
   (req, res, next) => {
     const errors = validationResult(req);
+
+    console.log(errors.array());
 
     if (!errors.isEmpty()) {
       async.parallel(

@@ -94,22 +94,14 @@ const product_create_post = [
     .trim()
     .isNumeric()
     .escape(),
+  body("image", "Image required")
+    .notEmpty()
+    .escape(),
   body("category.*").escape(),
 
   (req, res, next) => {
     const errors = validationResult(req);
 
-    const newProduct = new Product({
-      ...req.body,
-      category: typeof req.body.category === "undefined" ? [] : req.body.category,
-      image: {
-        data: req.file.buffer,
-        contentType: req.file.mimetype,
-        path: req.file.path,
-        url: ""
-      }
-    })
-    console.log(newProduct);
     if (!errors.isEmpty()) {
       async.parallel(
         {
@@ -133,6 +125,16 @@ const product_create_post = [
       );
       return;
     }
+    const newProduct = new Product({
+      ...req.body,
+      category: typeof req.body.category === "undefined" ? [] : req.body.category,
+      image: {
+        data: req.file.buffer,
+        contentType: req.file.mimetype,
+        path: req.file.path,
+        url: ""
+      }
+    })
     newProduct.save((err) => {
       if (err) {
         return next(err);
